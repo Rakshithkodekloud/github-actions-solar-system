@@ -85,10 +85,13 @@
           sleep 60
           kubectl -n kube-system get pod
           set +e
-          kubectl run solar --image ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha }} \
+          # lowercase repo owner inline
+          REPO_OWNER_LC="${GITHUB_REPOSITORY_OWNER,,}"
+          kubectl run solar --image ghcr.io/${REPO_OWNER_LC}/solar-system:${{ github.sha }} \
             --env MONGO_URI=${{ env.MONGO_URI}} \
             --env MONGO_USERNAME=${{ env.MONGO_USERNAME}} \
             --env MONGO_PASSWORD=${{ env.MONGO_PASSWORD}}
           set -e
           echo "kubectl returned $?"
           sleep 10  
+
