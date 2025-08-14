@@ -93,5 +93,8 @@
             --env MONGO_PASSWORD=${{ env.MONGO_PASSWORD}}
           set -e
           echo "kubectl returned $?"
-          sleep 10  
+          kubectl -n default get pod -o wide
+          kubectl get svc -o wide
+          sleep 60  
+
 
